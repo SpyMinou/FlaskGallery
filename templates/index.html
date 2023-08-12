@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images Gallery</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <nav>
+        <a href="/">
+            <li>Gallery</li>
+        </a>
+        <a href="/add">
+            <li>Add image</li>
+        </a>
+    </nav>
+    {% block gallery %}
+    <div id="gallery">
+        {% if images %}
+        {% for image in images %}
+        <div class="image-container">
+            <h2>{{ image.image_name }}</h2>
+            <div>
+                <img src="data:image/jpeg;base64,{{ image.image_content }}" alt="{{image.image_name}}">
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    {% endblock %}
+    <script src="{{url_for('static',filename='script.js')}}"></script>
+</body>
+</html>

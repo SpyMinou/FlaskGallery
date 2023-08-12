@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block gallery %}
+<div id="form_container">
+<form action="/added" id="form" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" id="image" onchange="previewImage(event)" required>
+    <img id="imagePreview" src="{{url_for('static',filename='/images/ADD_PHOTO.jpg')}}">
+    <input type="text" name="name"  id="name" required placeholder="Name of your image">
+    <input type="submit" value="Add Image">
+</form>
+</div>
+
+<script>
+    function previewImage(event) {
+        const imageInput = event.target;
+        const imagePreview = document.getElementById('imagePreview');
+        const file = imageInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                imagePreview.src = event.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = "{{url_for('static',filename='/images/ADD_PHOTO.jpg')}}";
+        }
+    }
+</script>
+{% endblock %}
